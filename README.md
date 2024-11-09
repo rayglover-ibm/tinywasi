@@ -95,7 +95,6 @@ None.
 ### Dev-Dependencies
 
 * typescript - for compiling the typescript source files to javascript
-* @types/node - typescript definitions for node's API
 
 Optionally:
 

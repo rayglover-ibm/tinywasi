@@ -1,5 +1,3 @@
-import * as crypto from 'crypto';
-
 export class TinyWASI {
     private instance?: WebAssembly.Instance = undefined;
 
@@ -210,7 +208,7 @@ export class TinyWASI {
 
         const buffer = new Uint8Array(memory.buffer, pointer, size);
 
-        crypto.randomFillSync(buffer);
+        crypto.getRandomValues(buffer);
 
         return this.WASI_ERRNO_SUCCESS;
     }
