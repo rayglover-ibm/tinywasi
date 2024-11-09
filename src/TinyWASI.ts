@@ -22,8 +22,8 @@ export class TinyWASI {
             clock_res_get: this.clock_res_get, // ((param i32 i32) (result i32))
             clock_time_get: this.clock_time_get, // ((param i32 i64 i32) (result i32))
 
-            environ_get: undefined, // ((param i32 i32) (result i32))
-            environ_sizes_get: undefined, // ((param i32 i32) (result i32))
+            environ_get: this.environ_get, // ((param i32 i32) (result i32))
+            environ_sizes_get: this.environ_sizes_get, // ((param i32 i32) (result i32))
 
             fd_advise: undefined, // ((param i32 i64 i64 i32) (result i32))
             fd_allocate: undefined, // ((param i32 i64 i64) (result i32))
@@ -210,6 +210,19 @@ export class TinyWASI {
 
         crypto.getRandomValues(buffer);
 
+        return this.WASI_ERRNO_SUCCESS;
+    }
+
+    private environ_sizes_get(environCountPtr: number, environBufSizePtr: number): number {
+        const view = this.getDataView();
+        
+        view.setUint32(environCountPtr, 0, true);
+        view.setUint32(environBufSizePtr, 0, true);
+
+        return this.WASI_ERRNO_SUCCESS;
+    }
+
+    private environ_get(_environPtr: number, _environBufPtr: number): number {
         return this.WASI_ERRNO_SUCCESS;
     }
 }
